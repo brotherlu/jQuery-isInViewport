@@ -1,0 +1,16 @@
+{
+  "name": "isInViewport",
+  "version": "0.0.0",
+  "authors": [
+    "Louay Cheikh <brotherlu@gmail.com>"
+  ],
+  "description": "jQuery plugin to verify if an element is with in the viewport",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

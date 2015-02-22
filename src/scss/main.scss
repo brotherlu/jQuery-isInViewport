@@ -1,0 +1,35 @@
+html,
+body {
+  background-color: #f7f7f7;
+  height: 100%;
+}
+
+section {
+  min-height: 100%;
+}
+
+h1 {
+  text-align: center;
+}
+
+.square {
+  height: 400px;
+  margin: auto;
+  width: 400px;
+
+  &.one {
+    background-color: #349875;
+  }
+
+  &.two {
+    background-color: #995412;
+  }
+
+  &.three {
+    background-color: #349987;
+  }
+
+  &.four {
+    background-color: #a63376;
+  }
+}
