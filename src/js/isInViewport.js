@@ -21,16 +21,16 @@
   $.fn.isInViewport = function(options){
 
     var settings = {
-      visibleClass: "isVisible"
+      className: "isVisible"
     };
 
     $.extend(settings, options);
 
     return this.each(function(){
       if(isInViewport(this)){
-        $(this).addClass(settings.visibleClass);
-      } else if (isInViewport(this) && $(this).hasClass(settings.visibleClass)){
-        $(this).removeClass(settings.visibleClass);
+        $(this).addClass(settings.className);
+      } else if (!isInViewport(this) && $(this).hasClass(settings.className)){
+        $(this).removeClass(settings.className);
       }
     });
 
