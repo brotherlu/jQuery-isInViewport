@@ -1,12 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js">
+  <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
   <script type="text/javascript" src="js/isInViewport.min.js"></script>
   <link rel="stylesheet" href="css/main.css">
   <title>isInViewport Demo</title>
 </head>
 <body>
+  <nav class="header">
+    <h2>Click the button to check which blocks as visible</h2>
+    <button id="checker">Check</button>
+  </nav>
   <section class="Home">
     <h1>isInViewport jQuery Demo</h1>
     <div class="square one"></div>
@@ -26,5 +30,11 @@
     <h1>End of the document</h1>
     <div class="square four"></div>
   </section>
+
+  <script>
+    $('#checker').click(function(){
+      $('.square').isInViewport();
+    });
+  </script>
 </body>
 </html>

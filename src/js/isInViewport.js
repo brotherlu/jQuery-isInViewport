@@ -6,14 +6,15 @@
         viewportTop = $(window).scrollTop(),
         viewportBottom = viewportTop + $(window).height();
 
-    console.table ({
+   /* console.table ({
       element: this.className,
       elemTop: elemTop,
       elemBottom: elemBottom,
       viewportTop: viewportTop,
       viewportBottom: viewportBottom,
       isVisible: elemTop <= viewportBottom && elemBottom >= viewportTop
-    });
+    });*/
+
     return (elemTop <= viewportBottom && elemBottom >= viewportTop);
   }
 
