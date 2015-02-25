@@ -30,7 +30,7 @@
     $.extend(settings, options);
 
     return this.each(function(){
-      if(isInViewport(this)){
+      if(isInViewport(this) && !(this).hasClass(settings.className)){
         $(this).addClass(settings.className);
         callback(this);
       } else if (!isInViewport(this) && $(this).hasClass(settings.className)){
