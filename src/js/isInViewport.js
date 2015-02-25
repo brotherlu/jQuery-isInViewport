@@ -15,7 +15,7 @@
       isVisible: elemTop <= viewportBottom && elemBottom >= viewportTop
     });*/
 
-    return (elemTop <= viewportBottom && elemBottom >= viewportTop);
+    return (elemTop < viewportBottom && elemBottom >= viewportTop);
   }
 
   $.fn.isInViewport = function(options,callback,exitCallback){
@@ -30,7 +30,7 @@
     $.extend(settings, options);
 
     return this.each(function(){
-      if(isInViewport(this) && !(this).hasClass(settings.className)){
+      if(isInViewport(this) && !$(this).hasClass(settings.className)){
         $(this).addClass(settings.className);
         callback(this);
       } else if (!isInViewport(this) && $(this).hasClass(settings.className)){
