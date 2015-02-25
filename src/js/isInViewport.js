@@ -18,10 +18,13 @@
     return (elemTop <= viewportBottom && elemBottom >= viewportTop);
   }
 
-  $.fn.isInViewport = function(options){
+  $.fn.isInViewport = function(options,callback,exitCallback){
+
+    callback = callback || function(el){};
+    exitCallback = exitCallback || function(el){};
 
     var settings = {
-      className: "isVisible"
+      className: 'isVisible'
     };
 
     $.extend(settings, options);
@@ -29,8 +32,10 @@
     return this.each(function(){
       if(isInViewport(this)){
         $(this).addClass(settings.className);
+        callback(this);
       } else if (!isInViewport(this) && $(this).hasClass(settings.className)){
         $(this).removeClass(settings.className);
+        exitCallback(this);
       }
     });
 

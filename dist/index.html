@@ -2,6 +2,10 @@
     $('#checker').click(function(){
         $('.square').isInViewport({
           className: 'AllEyesOnMe'
-          });
+          },function(el){
+            console.log(el);
+            },function(el){
+              console.log(el);
+            });
     });
   </script></body></html>
