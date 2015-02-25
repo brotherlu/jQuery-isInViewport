@@ -1,4 +1,5 @@
 (function($, window){
+  'user strict';
 
   function isInViewport(elem){
     var elemTop = $(elem).offset().top,
@@ -17,51 +18,74 @@
     };
   }
 
-  $.fn.isInViewport = function(options,callback,exitCallback){
-
-    // prevent any errors by defining a default value
-    // not classy but does the job
-    callback = callback || function(el){};
-    exitCallback = exitCallback || function(el){};
+  $.fn.isInViewport = function(options){
 
     // default settings
     var settings = {
       className: 'isVisible',
-      focusName: 'isFocus'
+      isVisibleEnterCallback: function(){},
+      isVisibleExitCallback: function(){},
+      focusName: 'isFocus',
+      isFocusEnterCallback: function(){},
+      isFocusExitCallback: function(){}
     };
 
     // Extend the settings with the inputted options
     $.extend(settings, options);
     
-    //
-    var maxPercent = 0;
+    // Holding maximum percentage
+    var maxPercent = {
+      percentage: 0,
+      element: null
+    };
 
     return this.each(function(){
+
+      var viewData = isInViewport(this);
+
       // Check for visible elements
-      if(isInViewport(this).isVisible){
+      if(viewData.isVisible){
         
-        // Add ClassName
-        $(this).addClass(settings.className);
+        if(!$(this).hasClass(settings.className)){
+          // Add ClassName
+          $(this).addClass(settings.className);
+
+          // Execute the enter visible callback
+          settings.isVisibleEnterCallback.call(this);
+        }
 
         // Check if the element is the most visible element
-        if(isInViewport(this).percentageOfViewport > maxPercent){
+        if(viewData.percentageOfViewport > maxPercent.percentage ){
           
           // Store the new max view percentage
-          maxPercent = isInViewport(this).percentageOfViewport;
-          // Clear old focus element
-          $('.'+settings.focusName).removeClass(settings.focusName);
-          // Add New focus element class
-          $(this).addClass(settings.focusName);
+          maxPercent.percentage = viewData.percentageOfViewport;
+          maxPercent.element = this;
         }
-        // Execute the callback
-        callback(this);
 
         // Cleanup all non visible elements
-      } else if (!isInViewport(this).isVisible && $(this).hasClass(settings.className)){
+      } else if (!viewData.isVisible && $(this).hasClass(settings.className)){
         // Remove all classes from the elements
         $(this).removeClass(settings.className).removeClass(settings.focusName);
         // Execute the disappear callback
-        exitCallback(this);
+        settings.isVisibleExitCallback.call(this);
+      }
+      // Once each is completed start the defered function
+    }).promise().done(function(){
+      
+      var e = $('.'+settings.focusName)[0];
+
+      if (e !== maxPercent.element) {
+        if (e !== undefined){
+          settings.isFocusExitCallback.call(e);
+
+          // remove the old focus element
+          $(e).removeClass(settings.focusName);
+        }
+
+        // add the focus class to the current element
+        $(maxPercent.element).addClass(settings.focusName);
+        // run the enter callback on the new element
+        settings.isFocusEnterCallback.call(maxPercent.element);
       }
     });
 

@@ -1,11 +1,22 @@
 <!doctype html><html lang=en><head><script type=text/javascript src=../bower_components/jquery/dist/jquery.min.js></script><script type=text/javascript src=js/isInViewport.min.js></script><link rel=stylesheet href=css/main.css><title>isInViewport Demo</title></head><body><nav class=header><h2>Click the button to check which blocks as visible</h2><button id=checker>Check</button></nav><section class=Home><h1>isInViewport jQuery Demo</h1><div class="square one"></div></section><section class=More><h1>More Scrolling</h1><div class="square two"></div></section><section class=SomeMore><h1>Even More?</h1><div class="square three"></div></section><section class=End><h1>End of the document</h1><div class="square four"></div></section><script>
     $('#checker').click(function(){
         $('.square').isInViewport({
-          className: 'AllEyesOnMe'
-          },function(el){
-            console.log(el);
-            },function(el){
-              console.log(el);
-            });
+isVisibleEnterCallback: function(){
+  console.log("Enter");
+  console.log(this);
+},
+isVisibleExitCallback: function(){
+  console.log("Exit");
+  console.log(this);
+},
+isFocusEnterCallback: function(){
+  console.log("Enter Focus");
+  console.log(this);
+},
+isFocusExitCallback: function(){
+  console.log("Exit Focus");
+  console.log(this);
+}
+        });
     });
   </script></body></html>
